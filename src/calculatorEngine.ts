@@ -42,7 +42,8 @@ export type CalculatorKey =
   | 'DEG'
   | 'RAD'
   | 'STO'
-  | 'RCL';
+  | 'RCL'
+  | 'SPC';
 
 export interface CalculatorState {
   stack: number[];
@@ -154,6 +155,8 @@ export function dispatchKey(state: CalculatorState, key: CalculatorKey): Calcula
       return { ...state, angleMode: 'DEG' };
     case 'RAD':
       return { ...state, angleMode: 'RAD' };
+    case 'SPC':
+      return state;
     default:
       return state;
   }

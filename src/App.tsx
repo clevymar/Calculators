@@ -13,6 +13,7 @@ interface KeyButton {
   label: string;
   keyId: CalculatorKey;
   variant?: 'number' | 'operator' | 'function' | 'control' | 'wide';
+  layout?: 'wide' | 'enterTall' | 'plusUnder';
   title?: string;
 }
 
@@ -56,29 +57,27 @@ const keyRows: KeyButton[][] = [
     { label: '8', keyId: '8', variant: 'number' },
     { label: '9', keyId: '9', variant: 'number' },
     { label: '/', keyId: '/', variant: 'operator' },
-    { label: 'DEL', keyId: 'BACKSPACE', variant: 'control', title: 'Backspace' },
-    { label: 'CHS', keyId: 'CHS', variant: 'control', title: 'Change sign' }
+    { label: 'CHS', keyId: 'CHS', variant: 'control', title: 'Change sign' },
+    { label: 'SPC', keyId: 'SPC', variant: 'control', title: 'Space' }
   ],
   [
     { label: '4', keyId: '4', variant: 'number' },
     { label: '5', keyId: '5', variant: 'number' },
     { label: '6', keyId: '6', variant: 'number' },
     { label: '*', keyId: '*', variant: 'operator' },
-    { label: 'ENTER', keyId: 'ENTER', variant: 'wide' }
+    { label: 'DEL', keyId: 'BACKSPACE', variant: 'control', layout: 'wide', title: 'Backspace' }
   ],
   [
     { label: '1', keyId: '1', variant: 'number' },
     { label: '2', keyId: '2', variant: 'number' },
     { label: '3', keyId: '3', variant: 'number' },
     { label: '-', keyId: '-', variant: 'operator' },
-    { label: '.', keyId: '.', variant: 'number' },
-    { label: '+', keyId: '+', variant: 'operator' }
+    { label: 'ENTER', keyId: 'ENTER', variant: 'wide', layout: 'enterTall' }
   ],
   [
-    { label: '0', keyId: '0', variant: 'number' },
-    { label: '00', keyId: '0', variant: 'number' },
-    { label: 'ENTER', keyId: 'ENTER', variant: 'wide' },
-    { label: '+', keyId: '+', variant: 'operator' }
+    { label: '0', keyId: '0', variant: 'number', layout: 'wide' },
+    { label: '.', keyId: '.', variant: 'number' },
+    { label: '+', keyId: '+', variant: 'operator', layout: 'plusUnder' }
   ]
 ];
 
@@ -161,7 +160,7 @@ export function App() {
           {keyRows.flatMap((row, rowIndex) =>
             row.map((button, buttonIndex) => (
               <button
-                className={`key key-${button.variant ?? 'function'}`}
+                className={`key key-${button.variant ?? 'function'} ${button.layout ? `key-layout-${button.layout}` : ''}`}
                 key={`${rowIndex}-${buttonIndex}-${button.label}`}
                 onClick={() => dispatch(button.keyId)}
                 title={button.title ?? button.label}
@@ -201,6 +200,8 @@ function mapKeyboardEvent(event: KeyboardEvent): CalculatorKey | null {
     r: 'SQRT',
     d: 'DROP'
   };
+
+  if (event.key === ' ') return 'SPC';
 
   return shortcuts[lower] ?? null;
 }

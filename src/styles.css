@@ -47,7 +47,7 @@ button {
 }
 
 .calculator {
-  width: min(720px, 100%);
+  width: min(560px, 100%);
   border-radius: 22px 22px 34px 34px;
   padding: clamp(12px, 2vw, 20px);
   background:
@@ -215,9 +215,27 @@ h1 {
   background: linear-gradient(180deg, var(--control), var(--control-edge));
 }
 
-.key-wide {
+.key-layout-wide {
   grid-column: span 2;
+}
+
+.key-wide,
+.key-layout-wide.key-wide,
+.key-layout-enterTall {
   background: linear-gradient(180deg, #8b7960, #5a4936);
+}
+
+.key-layout-wide.key-control {
+  background: linear-gradient(180deg, var(--control), var(--control-edge));
+}
+
+.key-layout-enterTall {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.key-layout-plusUnder {
+  grid-column: 4;
 }
 
 @media (max-width: 640px) {
