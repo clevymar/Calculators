@@ -1,0 +1,256 @@
+:root {
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f2f4ef;
+  background: #111418;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --case: #242b31;
+  --case-edge: #12161a;
+  --display: #9fb69d;
+  --display-dark: #1d3027;
+  --key: #e2e2d8;
+  --key-dark: #aeb0a9;
+  --operator: #4f6671;
+  --operator-edge: #2e444f;
+  --control: #6f5c70;
+  --control-edge: #433548;
+  --function: #3b4148;
+  --function-edge: #222830;
+  --number-text: #101418;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 2vw, 24px);
+  background:
+    linear-gradient(120deg, rgba(64, 74, 75, 0.55), transparent 48%),
+    radial-gradient(circle at 75% 20%, rgba(143, 161, 118, 0.2), transparent 32%),
+    #111418;
+}
+
+.calculator {
+  width: min(720px, 100%);
+  border-radius: 22px 22px 34px 34px;
+  padding: clamp(12px, 2vw, 20px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 18%),
+    linear-gradient(180deg, #333c44, var(--case));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -9px 0 var(--case-edge),
+    0 24px 60px rgba(0, 0, 0, 0.48);
+}
+
+.brand-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.eyebrow {
+  margin: 0 0 3px;
+  color: #bfc7c7;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.45rem, 3vw, 2.15rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.mode-pill {
+  min-width: 68px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: #181e23;
+  color: #dfe8d7;
+  text-align: center;
+  font-weight: 800;
+}
+
+.display {
+  border: 6px solid #171c20;
+  border-radius: 12px;
+  padding: clamp(9px, 1.4vw, 14px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 12%),
+    var(--display);
+  color: var(--display-dark);
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.35),
+    0 8px 0 rgba(0, 0, 0, 0.28);
+}
+
+.status-line,
+.message-line {
+  display: flex;
+  justify-content: space-between;
+  min-height: 1.2rem;
+  font-family: "Cascadia Mono", "Courier New", monospace;
+  font-size: clamp(0.78rem, 2vw, 0.98rem);
+  font-weight: 700;
+}
+
+.message-line {
+  margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stack-lines {
+  margin-top: 10px;
+  display: grid;
+  gap: 3px;
+}
+
+.stack-row {
+  display: grid;
+  grid-template-columns: 3ch 1fr;
+  align-items: baseline;
+  min-height: clamp(28px, 5vw, 38px);
+  font-family: "Cascadia Mono", "Courier New", monospace;
+  font-weight: 800;
+}
+
+.stack-label {
+  font-size: clamp(1.05rem, 3vw, 1.5rem);
+}
+
+.stack-value {
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: clamp(1.25rem, 5vw, 2.4rem);
+  letter-spacing: 0;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(6px, 1vw, 10px);
+  margin-top: 16px;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: clamp(34px, 5vw, 46px);
+  border: 0;
+  border-radius: 8px;
+  padding: 8px;
+  color: #f7f8f2;
+  cursor: pointer;
+  font-size: clamp(0.72rem, 1.8vw, 0.96rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  text-align: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.25),
+    0 4px 8px rgba(0, 0, 0, 0.24);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease,
+    filter 0.12s ease;
+}
+
+.key:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.25),
+    0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.key:focus-visible {
+  outline: 3px solid #f0d274;
+  outline-offset: 2px;
+}
+
+.key-number {
+  background: linear-gradient(180deg, var(--key), var(--key-dark));
+  color: var(--number-text);
+}
+
+.key-operator {
+  background: linear-gradient(180deg, var(--operator), var(--operator-edge));
+}
+
+.key-function {
+  background: linear-gradient(180deg, var(--function), var(--function-edge));
+}
+
+.key-control {
+  background: linear-gradient(180deg, var(--control), var(--control-edge));
+}
+
+.key-wide {
+  grid-column: span 2;
+  background: linear-gradient(180deg, #8b7960, #5a4936);
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    align-items: stretch;
+    padding: 10px;
+  }
+
+  .calculator {
+    border-radius: 16px 16px 24px 24px;
+    padding: 14px;
+  }
+
+  .brand-row {
+    align-items: center;
+  }
+
+  .keypad {
+    gap: 7px;
+  }
+
+  .key {
+    min-height: 36px;
+    padding: 6px 4px;
+  }
+}
+
+@media (max-width: 430px) {
+  .keypad {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .key-wide {
+    grid-column: span 2;
+  }
+}
